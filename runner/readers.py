@@ -23,7 +23,8 @@ def laneTimes(result_string):
 # result_string=2015-01-13 21:31:35.431482:4.41579693732=5.3072100027=5.66516712721=3.13101328584=5.6069078248=4.39635514875
 
     log.debug('result_string={}'.format(result_string))
-    lane_times = result_string.translate(None, '!ABCDEF').split('=')
+    lane_times = result_string.translate(None, '!"#$%&\'(ABCDEF').split('=')
+
     result = dict(zip(range(lanes+2), lane_times))
 
     for x in result:
