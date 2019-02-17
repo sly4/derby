@@ -71,6 +71,20 @@ class DerbyEventAdmin(admin.ModelAdmin):
 class RaceAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'derby_event', 'racer_group', 'level', 'lane_ct', 'observer_url']
     readonly_fields = ('id',)
+    actions = ['seed_race']
+    
+    def seed_race(self, request, queryset):
+        for current in queryset:
+            current.seed_race()
+            
+#     def response_change(self, request, obj):
+#         if "_seed-race" in request.POST:
+#             matching_names_except_this = self.get_queryset(request).filter(name=obj.name).exclude(pk=obj.id)
+#             matching_names_except_this.delete()
+#             obj.seed_race()
+#             self.message_user(request, "Race has been seeded")
+#             return HttpResponseRedirect(".")
+#         return super().response_change(request, obj)
 
 class CurrentAdmin(admin.ModelAdmin):
     list_display = ['race', 'run', 'stamp', 'control_url']

@@ -5,7 +5,7 @@ import random
 from django.db import connections
 from django.db import transaction
 
-from models import DerbyEvent, Race, Racer, RacerName, Run, RunPlace, Group, Current
+from models import DerbyEvent, Race, Racer, RacerName, Run, RunPlace, Current
 
 log = logging.getLogger('runner')
 

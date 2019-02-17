@@ -1,0 +1,9 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_urls %}
+
+
+{% block after_field_sets %}
+<div style="display: none" class="submit-row">
+            <input type="submit" value="Seed Race" name="_seed-race">
+    </div>
+{% endblock %}

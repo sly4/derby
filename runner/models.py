@@ -1,5 +1,6 @@
 import datetime
 import logging
+import os
 from django.utils.html import format_html
 from django.db import models
 
@@ -108,6 +109,12 @@ class Race(models.Model):
     
     def __unicode__(self):
         return self.name
+    
+    def seed_race(self):
+        log.info('Seeding race {}/{}'.format(self.pk, self.name))
+        os.system('python manage.py seed {} --reset'.format(self.pk))
+        #seeder = EventManager()
+        #seeder.seedRace(self)
 
 class Run(models.Model):
     ''' One derby instance/heat '''
@@ -170,6 +177,6 @@ class Current(SingletonModel):
     
     def control_url(self):
         return format_html('<a href="/runner/race/current/control">Control</a>')
-    
+        
     control_url.short_description = 'Race Control Link'
     
