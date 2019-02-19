@@ -8,6 +8,8 @@ import threading
 import time
 import sys
 
+from picamera import PiCamera
+
 log = logging.getLogger('runner')
 lanes = 6  # TODO/HACK/FIXME: This code assumes 6 lanes - you can't just change this value!!!!!
 
@@ -130,6 +132,10 @@ class FastTrackResultReader(threading.Thread):
         log.info('Stopping....')
 
     def run(self):
+        camera = PiCamera()
+        camera.resolution = (1024, 768)
+        camera.start_preview()
+        
         KDSETLED = 0x4B32
         
         lastKeycode = 0x00
@@ -163,6 +169,7 @@ class FastTrackResultReader(threading.Thread):
                             self.resetCallback()
                         else:
                             now = datetime.datetime.now()
+                            camera.capture('{:%Y-%m-%d %H:%M:%S.%f}.jpg'.format(now))
                             lastResult = '{:%Y-%m-%d %H:%M:%S.%f}:'.format(now) + rawResult
                             self.tracklog.info(lastResult)
                             self.resultsCallback(lastResult)
