@@ -2,6 +2,7 @@ from django.contrib import admin
 import logging
 import models
 from django import forms
+from django.template.context_processors import request
 
 # import name_generator
 
@@ -13,12 +14,28 @@ class PersonAdmin(admin.ModelAdmin):
     list_display = ['id', 'name_first', 'name_last', 'rank', 'pack']
     list_display_links = ['id', 'name_first', 'name_last', 'rank', 'pack']
     list_filter = ('rank','pack',)
+    actions = ['set_tiger', 'set_wolf', 'set_bear', 'set_webelos', 'set_aol']
 
     def rank(self, obj):
         return obj.rank
 
     def racer_id(self, obj):
         return obj.id
+    
+    def set_tiger(self, request, queryset):
+        queryset.update(rank='Tiger')
+    
+    def set_wolf(self, request, queryset):
+        queryset.update(rank='Wolf')
+    
+    def set_bear(self, request, queryset):
+        queryset.update(rank='Bear')
+    
+    def set_webelos(self, request, queryset):
+        queryset.update(rank='WEBELOS')
+        
+    def set_aol(self, request, queryset):
+        queryset.update(rank='AOL')
 
 class RacerAdminForm(forms.ModelForm):
     def clean(self):

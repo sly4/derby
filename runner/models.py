@@ -25,8 +25,8 @@ class Person(models.Model):
     rank = models.CharField(max_length=10, choices=[('Tiger','Tiger'),
                                                     ('Wolf','Wolf'),
                                                     ('Bear','Bear'),
-                                                    ('WEBELOS I','WEBELOS I'),
-                                                    ('WEBELOS II', 'WEBELOS II'),
+                                                    ('WEBELOS','WEBELOS'),
+                                                    ('AOL', 'AOL'),
                                                     ('None', 'n/a')])
     pack = models.CharField(max_length=5, default='57')
     picture = models.ImageField(upload_to='people', blank=True, null=True, editable=False)
