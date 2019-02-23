@@ -7,4 +7,9 @@ from-camera/**
 log/
 media/
 !derbysite/media/racers/default-image.png
-derby.db
+*.db
+*.bak
+derby.db*
+migrations
+*.vscode
+*.code-workspace

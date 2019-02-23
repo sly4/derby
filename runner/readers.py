@@ -143,7 +143,7 @@ class FastTrackResultReader(threading.Thread):
         try:
             console_fd = os.open('/dev/console', os.O_NOCTTY) # for heartbeat - capslock key
         except:
-            print 'heartbeat blinky disabled (likely permissions)'
+            sys.stdout.write('heartbeat blinky disabled (likely permissions)')
             log.warn('Unable to open console for heartbeat blinky')
 
         log.info('Connecting to track at {}.'.format(self.SERIAL_DEVICE))
@@ -182,7 +182,7 @@ class FastTrackResultReader(threading.Thread):
                         lastKeycode = self.INDICATOR_KEY - lastKeycode
                     except:
                         console_fd = None
-                        print 'heartbeat blinky disabled (likely permissions)'
+                        sys.stdout.write('heartbeat blinky disabled (likely permissions)')
                         log.warn('Unable to write to console for heartbeat blinky')
             ser.close()
 
