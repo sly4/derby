@@ -123,11 +123,22 @@ class RunPlaceAdmin(admin.ModelAdmin):
     def person(self, obj):
         return obj.racer.person
 
+class RunAdmin(admin.ModelAdmin):
+    list_display = ['race', 'run_seq', 'run_completed']
+    list_filter = ['race']
+    actions = ['reset_run']
+
+    def reset_run(self, request, queryset):
+        queryset.update(run_completed=False)
+
+    def race(self, obj):
+        return obj.race
+    
 admin.site.register(models.DerbyEvent, DerbyEventAdmin)
 admin.site.register(models.Person, PersonAdmin)
 admin.site.register(models.Racer, RacerAdmin)
 admin.site.register(models.Race, RaceAdmin)
-admin.site.register(models.Run)
+admin.site.register(models.Run, RunAdmin)
 admin.site.register(models.RunPlace, RunPlaceAdmin)
 admin.site.register(models.Group, GroupAdmin)
 admin.site.register(models.Current, CurrentAdmin)
