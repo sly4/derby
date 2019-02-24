@@ -1,6 +1,6 @@
 import datetime
 import logging
-import os
+import subprocess
 from django.utils.html import format_html
 from django.db import models
 
@@ -112,7 +112,8 @@ class Race(models.Model):
     
     def seed_race(self):
         log.info('Seeding race {}/{}'.format(self.pk, self.name))
-        os.system('python manage.py seed {} --reset'.format(self.pk))
+        cmd_result = subprocess.check_output(['python', 'manage.py', 'seed', format(self.pk), '--reset'], stderr=subprocess.STDOUT)
+        return cmd_result
         #seeder = EventManager()
         #seeder.seedRace(self)
 

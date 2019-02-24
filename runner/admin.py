@@ -91,8 +91,10 @@ class RaceAdmin(admin.ModelAdmin):
     actions = ['seed_race']
     
     def seed_race(self, request, queryset):
+        seed_results = ''
         for current in queryset:
-            current.seed_race()
+            seed_results += current.seed_race()
+        self.message_user(request, seed_results, extra_tags='pre')
             
 #     def response_change(self, request, obj):
 #         if "_seed-race" in request.POST:
@@ -108,12 +110,25 @@ class CurrentAdmin(admin.ModelAdmin):
     list_display_links = ['race', 'run', 'stamp']
     readonly_fields = ('id', 'stamp')
 
+class RunPlaceAdmin(admin.ModelAdmin):
+    list_display = ['run', 'racer_name', 'person', 'lane', 'seconds']
+    list_filter = ['run__race', 'racer__person']
+    
+    def race(self, obj):
+        return obj.run.race
+
+    def racer_name(self, obj):
+        return obj.racer.name
+
+    def person(self, obj):
+        return obj.racer.person
+
 admin.site.register(models.DerbyEvent, DerbyEventAdmin)
 admin.site.register(models.Person, PersonAdmin)
 admin.site.register(models.Racer, RacerAdmin)
 admin.site.register(models.Race, RaceAdmin)
 admin.site.register(models.Run)
-admin.site.register(models.RunPlace)
+admin.site.register(models.RunPlace, RunPlaceAdmin)
 admin.site.register(models.Group, GroupAdmin)
 admin.site.register(models.Current, CurrentAdmin)
 admin.site.register(models.RacerName, RacerNameAdmin)
