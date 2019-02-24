@@ -99,13 +99,11 @@ TEMPLATES = [
             # insert your TEMPLATE_DIRS here
             ''.join((CURRENT_PATH, '../runner/templates')),
         ],
-        'APP_DIRS': False,
         'OPTIONS': {
             'debug': True,
             'context_processors': [
             'django.contrib.auth.context_processors.auth',
             'django.template.context_processors.debug',
-            'django.template.context_processors.request',
             'django.template.context_processors.i18n',
             'django.template.context_processors.media',
             'django.template.context_processors.static',
@@ -115,7 +113,6 @@ TEMPLATES = [
         'loaders': [
             'django.template.loaders.filesystem.Loader',
             'django.template.loaders.app_directories.Loader',
-            'admin_tools.template_loaders.Loader',
         ],
     }
     }
@@ -159,10 +156,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'admin_tools',
-    #'admin_tools.theming',
-    #'admin_tools.menu',
-    #'admin_tools.dashboard',
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.humanize',
